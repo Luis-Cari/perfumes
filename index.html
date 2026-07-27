@@ -1,162 +1,278 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Tienda de Perfumes</title>
+  <title>Perfumes | Tienda de Fragancias</title>
   <style>
     :root {
       color-scheme: light;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f3f7;
+      color: #1f2130;
     }
+
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
-      background: radial-gradient(circle at top left, #fff7f0 0%, #f9eef4 35%, #f3fbff 100%);
-      color: #1f2130;
       min-height: 100vh;
+      background: linear-gradient(180deg, #fff7f0 0%, #f3f6ff 100%);
     }
+
     header {
-      padding: 32px 20px 24px;
+      padding: 32px 24px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(10px);
-      box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82));
+      border-bottom: 1px solid rgba(31, 33, 48, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
     }
-    header h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1.05;
-    }
-    header p {
-      margin: 16px auto 0;
-      max-width: 680px;
-      font-size: 1rem;
-      color: #4f5568;
-    }
-    .hero-button {
+
+    .brand {
       display: inline-flex;
-      margin-top: 22px;
-      padding: 14px 24px;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-      border: none;
-      border-radius: 999px;
-      color: #1a1a1a;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
       font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1f2130;
+    }
+
+    .hero {
+      margin-top: 18px;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4.1rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      color: #151823;
+    }
+
+    .hero p {
+      margin: 20px auto 0;
+      max-width: 720px;
+      font-size: 1.05rem;
+      color: #4f5568;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .btn, .hero-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: none;
       text-decoration: none;
-      box-shadow: 0 12px 30px rgba(255, 154, 158, 0.25);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
     }
-    .hero-button:hover {
+
+    .hero-button,
+    .btn-primary {
+      background: linear-gradient(135deg, #ff7a9c 0%, #ffd7c4 100%);
+      color: #1f2130;
+      box-shadow: 0 18px 40px rgba(255, 124, 148, 0.22);
+    }
+
+    .btn-secondary,
+    .whatsapp-button {
+      background: white;
+      color: #1f2130;
+      box-shadow: 0 14px 30px rgba(31, 33, 48, 0.12);
+    }
+
+    .btn:hover,
+    .hero-button:hover,
+    .whatsapp-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(255, 154, 158, 0.3);
     }
+
     main {
-      padding: 24px 20px 48px;
+      padding: 20px 24px 48px;
       max-width: 1280px;
       margin: 0 auto;
     }
+
     .intro {
-      margin: 0 auto 28px;
-      max-width: 760px;
-      background: rgba(255,255,255,0.82);
-      padding: 22px 26px;
-      border-radius: 24px;
-      box-shadow: 0 16px 42px rgba(31, 33, 48, 0.08);
+      margin: 0 auto 32px;
+      max-width: 840px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 28px 30px;
+      border-radius: 28px;
+      box-shadow: 0 22px 48px rgba(31, 33, 48, 0.08);
+      border: 1px solid rgba(31, 33, 48, 0.06);
     }
+
     .intro h2 {
       margin-top: 0;
-      font-size: 1.7rem;
+      font-size: 2rem;
+      color: #141827;
     }
+
     .intro p {
-      margin: 12px 0 0;
+      margin: 16px 0 0;
+      font-size: 1rem;
       line-height: 1.8;
-      color: #4f5568;
+      color: #575d74;
     }
+
     .catalogo {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
+
     .producto {
-      background: rgba(255,255,255,0.9);
-      border-radius: 22px;
+      background: white;
+      border-radius: 28px;
       overflow: hidden;
       border: 1px solid rgba(31, 33, 48, 0.08);
-      box-shadow: 0 16px 32px rgba(31, 33, 48, 0.08);
+      box-shadow: 0 20px 42px rgba(31, 33, 48, 0.08);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
+
     .producto:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 40px rgba(31, 33, 48, 0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(31, 33, 48, 0.14);
     }
+
     .producto img {
       width: 100%;
-      height: 260px;
+      height: 280px;
       object-fit: cover;
       display: block;
-      background: #f5f5f5;
+      background: linear-gradient(180deg, #f7f2f6 0%, #f0f5ff 100%);
     }
+
     .producto-body {
-      padding: 18px;
+      padding: 22px;
     }
+
     .producto h3 {
-      margin: 0 0 10px;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-    }
-    .producto p {
-      margin: 0 0 12px;
-      color: #565e75;
-      line-height: 1.65;
-      font-size: 0.95rem;
-    }
-    .producto .precio {
       margin: 0;
-      font-weight: 700;
-      color: #1f2130;
+      font-size: 1.15rem;
+      color: #121426;
     }
+
+    .producto p {
+      margin: 12px 0 14px;
+      color: #555f77;
+      line-height: 1.7;
+      min-height: 3.2em;
+    }
+
+    .precio {
+      margin: 0 0 18px;
+      font-size: 1.2rem;
+      color: #1f2130;
+      font-weight: 800;
+    }
+
+    .producto-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .producto .btn {
+      flex: 1 1 48%;
+      min-width: 120px;
+      justify-content: center;
+    }
+
     .info {
       margin-top: 36px;
       display: grid;
-      gap: 14px;
-      background: rgba(255,255,255,0.9);
-      padding: 24px;
-      border-radius: 24px;
+      gap: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 26px;
+      border-radius: 26px;
       border: 1px solid rgba(31, 33, 48, 0.08);
     }
+
     .info h2 {
       margin: 0 0 10px;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      color: #141827;
     }
+
     .info p,
     .info ol {
       margin: 0;
       color: #515b72;
-      line-height: 1.8;
+      line-height: 1.85;
     }
+
     .info ol {
       padding-left: 18px;
     }
+
+    .terms {
+      display: grid;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+
     footer {
-      margin-top: 34px;
+      margin-top: 42px;
       text-align: center;
+      padding: 18px 8px 28px;
       color: #5d667d;
       font-size: 0.95rem;
       line-height: 1.7;
     }
-    footer strong {
-      color: #1f2130;
+
+    .whatsapp-fixed {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
     }
-    @media (max-width: 640px) {
-      header {
-        padding: 22px 16px 18px;
+
+    .whatsapp-fixed a {
+      background: #25d366;
+      color: white;
+      padding: 16px 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 18px 38px rgba(37, 211, 102, 0.28);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .whatsapp-fixed a:hover {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 720px) {
+      .hero-actions {
+        flex-direction: column;
       }
-      main {
-        padding: 20px 16px 36px;
-      }
+
       .producto img {
         height: 220px;
       }
@@ -165,129 +281,177 @@
 </head>
 <body>
   <header>
-    <h1>Perfumes únicos para tu tienda</h1>
-    <p>Descubre nuestra colección de fragancias importadas y los mejores clásicos orientales. Encuentra el perfume ideal para regalo, uso diario o una ocasión especial.</p>
-    <a class="hero-button" href="#catalogo">Ver catálogo</a>
+    <div class="brand">Perfumes · Fragancias Premium</div>
+    <div class="hero">
+      <h1>Tu tienda de perfumes ahora en línea</h1>
+      <p>Explora la colección completa con imágenes reales, precios actualizados y contacto directo por WhatsApp para pedir stock, envío o pago.</p>
+      <div class="hero-actions">
+        <a class="hero-button" href="#catalogo">Ver catálogo</a>
+        <a class="btn btn-secondary whatsapp-button" id="hero-whatsapp" href="#contacto">Contactar WhatsApp</a>
+      </div>
+    </div>
   </header>
+
   <main>
     <section class="intro">
-      <h2>Catálogo de perfumes</h2>
-      <p>Están todas las fragancias disponibles en la carpeta. Haz clic en el producto que te guste y consulta el precio y la entrega por mensaje directo.</p>
+      <h2>Catálogo visual de perfumes</h2>
+      <p>Desplázate por los productos, mira cada imagen, revisa el precio y elige el perfume que quieras. Presiona WhatsApp para preguntar por stock o confirmar entrega.</p>
     </section>
 
     <section id="catalogo" class="catalogo"></section>
 
-    <section class="info">
-      <h2>Cómo comprar</h2>
-      <ol>
-        <li>Elige tu perfume preferido del catálogo.</li>
-        <li>Anota el nombre exacto del producto.</li>
-        <li>Escríbenos por WhatsApp o mensaje directo para confirmar precio, stock y envío.</li>
-      </ol>
-      <p>Si quieres, también puedes editar esta página para colocar tu número de contacto real y una forma de pago.</p>
+    <section id="contacto" class="info">
+      <div>
+        <h2>¿Listo para comprar?</h2>
+        <p>Envía un mensaje directo por WhatsApp con el nombre del perfume y responderemos en minutos. También puedes pedir más fotos o información de envío.</p>
+        <a class="btn btn-primary" id="contact-whatsapp" href="#">Enviar WhatsApp</a>
+      </div>
+      <div class="terms">
+        <p><strong>Consejo:</strong> Reemplaza el número de WhatsApp en el código por tu número real para que los clientes te contacten directamente.</p>
+        <p>Si deseas cambiar precios, sólo actualiza los valores de <code>precio</code> en cada producto dentro del arreglo <code>productos</code> en este archivo.</p>
+      </div>
     </section>
   </main>
+
   <footer>
-    <p><strong>Nota:</strong> Reemplaza el texto de contacto con tu número o enlace de WhatsApp para cerrar ventas con tus clientes.</p>
+    <p>Compra por WhatsApp y recibe tu perfume con envío seguro. Asegúrate de mantener actualizados los precios y el número de contacto en el código.</p>
   </footer>
 
+  <div class="whatsapp-fixed">
+    <a id="whatsapp-float" href="#">📲 Chatear WhatsApp</a>
+  </div>
+
   <script>
+    const whatsappNumber = "5491123456789"; // REEMPLAZA con tu número real, sin signos ni espacios
+    const whatsappIntro = "Hola! Quiero más información sobre este perfume:";
+
     const productos = [
-      { archivo: "9am100ml.jpg", nombre: "9am 100 ml", descripcion: "Aroma fresco y moderno, ideal para el día a día.", precio: "Consultar precio" },
-      { archivo: "9amypmkhamrah.png", nombre: "9am y 9pm Khamrah", descripcion: "Presentación elegante con una mezcla oriental y nocturna.", precio: "Consultar precio" },
-      { archivo: "9pm100ml.jpg", nombre: "9pm 100 ml", descripcion: "Fragancia intensa para la noche con carácter y estilo.", precio: "Consultar precio" },
-      { archivo: "ameerat100ml.jpg", nombre: "Ameerat 100 ml", descripcion: "Perfume delicado y sofisticado para un toque femenino.", precio: "Consultar precio" },
-      { archivo: "ameeratmujer1000ml.jpg", nombre: "Ameerat Mujer 1000 ml", descripcion: "Botella grande con aroma floral y femenino.", precio: "Consultar precio" },
-      { archivo: "asad y hayaati.png", nombre: "Asad y Hayaati", descripcion: "Combinación oriental de fuerza y dulzura.", precio: "Consultar precio" },
-      { archivo: "asadaazul100ml.jpg", nombre: "Asada Azul 100 ml", descripcion: "Fragancia fresca con notas azules y acuáticas.", precio: "Consultar precio" },
-      { archivo: "asadaazul30ml.jpg", nombre: "Asada Azul 30 ml", descripcion: "Presentación de viaje con aroma fresco y ligero.", precio: "Consultar precio" },
-      { archivo: "asadamarron30ml.jpg", nombre: "Asada Marrón 30 ml", descripcion: "Aroma cálido y especiado en tamaño compacto.", precio: "Consultar precio" },
-      { archivo: "asadanegro100ml.jpg", nombre: "Asada Negro 100 ml", descripcion: "Perfume oscuro y elegante para ocasiones especiales.", precio: "Consultar precio" },
-      { archivo: "asadanegro30ml.jpg", nombre: "Asada Negro 30 ml", descripcion: "Versión reducida del clásico Asada Negro.", precio: "Consultar precio" },
-      { archivo: "botellas30ml.png", nombre: "Botellas 30 ml", descripcion: "Lote de botellas pequeñas ideales para muestras o regalo.", precio: "Consultar precio" },
-      { archivo: "chocooverdose75ml.jpg", nombre: "Choco Overdose 75 ml", descripcion: "Aroma gourmand rico y dulce con carácter único.", precio: "Consultar precio" },
-      { archivo: "eclaire100ml.jpg", nombre: "Eclaire 100 ml", descripcion: "Fragancia elegante con un toque dulce y sofisticado.", precio: "Consultar precio" },
-      { archivo: "erbapura100ml.jpg", nombre: "Erba Pura 100 ml", descripcion: "Aroma cítrico y fresco con una base cremosa.", precio: "Consultar precio" },
-      { archivo: "khamrahamarron100ml.jpg", nombre: "Khamrah Marrón 100 ml", descripcion: "Fragancia oriental con notas cálidas y amaderadas.", precio: "Consultar precio" },
-      { archivo: "khamrahanegro100ml.jpg", nombre: "Khamrah Negro 100 ml", descripcion: "Perfume profundo y sofisticado para eventos nocturnos.", precio: "Consultar precio" },
-      { archivo: "latafa 50ml.png", nombre: "Latafa 50 ml", descripcion: "Aroma clásico y refinado en un tamaño conveniente.", precio: "Consultar precio" },
-      { archivo: "lattafasakeena100ml.jpg", nombre: "Lattafa Sakeena 100 ml", descripcion: "Perfume suave y floral con presencia elegante.", precio: "Consultar precio" },
-      { archivo: "laverne75ml.jpg", nombre: "Laverne 75 ml", descripcion: "Fragancia moderna y versátil para cualquier momento.", precio: "Consultar precio" },
-      { archivo: "maahirgold100ml.jpg", nombre: "Maahir Gold 100 ml", descripcion: "Aroma dorado con notas ricas y envolventes.", precio: "Consultar precio" },
-      { archivo: "missarmaf100ml.jpg", nombre: "Miss Armaf 100 ml", descripcion: "Perfume femenino con una mezcla elegante y dulce.", precio: "Consultar precio" },
-      { archivo: "musamamblack1000ml.jpg", nombre: "Musamam Black 1000 ml", descripcion: "Botella grande con fragancia intensa y duradera.", precio: "Consultar precio" },
-      { archivo: "mystical100ml.jpg", nombre: "Mystical 100 ml", descripcion: "Aroma misterioso y sensual con un toque oriental.", precio: "Consultar precio" },
-      { archivo: "set latafa.png", nombre: "Set Latafa", descripcion: "Conjunto de fragancias Latafa para regalo o colección.", precio: "Consultar precio" },
-      { archivo: "shaheen100ml.jpg", nombre: "Shaheen 100 ml", descripcion: "Fragancia elegante para uso diario o noche.", precio: "Consultar precio" },
-      { archivo: "shaheengold100ml.jpg", nombre: "Shaheen Gold 100 ml", descripcion: "Versión premium con notas doradas y cálidas.", precio: "Consultar precio" },
-      { archivo: "xerjoffopera100ml.jpg", nombre: "Xerjoff Opera 100 ml", descripcion: "Aroma sofisticado inspirado en clásicos de lujo.", precio: "Consultar precio" },
-      { archivo: "yara100ml.png", nombre: "Yara 100 ml", descripcion: "Perfume fresco y floral con acabado suave.", precio: "Consultar precio" },
-      { archivo: "yarablanco30ml.jpg", nombre: "Yara Blanco 30 ml", descripcion: "Tamaño pequeño con aroma delicado y luminoso.", precio: "Consultar precio" },
-      { archivo: "yaracandy100ml.jpg", nombre: "Yara Candy 100 ml", descripcion: "Fragancia dulce y juvenil con mucho encanto.", precio: "Consultar precio" },
-      { archivo: "yaranaranja30ml.jpg", nombre: "Yara Naranja 30 ml", descripcion: "Presentación vibrante con notas cítricas.", precio: "Consultar precio" },
-      { archivo: "yararosadiviloo100ml.jpg", nombre: "Yara Rosa Diviloo 100 ml", descripcion: "Aroma femenino y floral con carácter delicado.", precio: "Consultar precio" }
+      { archivo: "9am100ml.jpg", nombre: "9am 100 ml", descripcion: "Aroma fresco y moderno, perfecto para el día a día.", precio: 14900 },
+      { archivo: "9amypmkhamrah.png", nombre: "9am y 9pm Khamrah", descripcion: "Fragancia elegante para una noche especial.", precio: 18900 },
+      { archivo: "9pm100ml.jpg", nombre: "9pm 100 ml", descripcion: "Perfume intenso con carácter nocturno.", precio: 14600 },
+      { archivo: "ameerat100ml.jpg", nombre: "Ameerat 100 ml", descripcion: "Aroma dulce y femenino con presencia sofisticada.", precio: 12900 },
+      { archivo: "ameeratmujer1000ml.jpg", nombre: "Ameerat Mujer 1000 ml", descripcion: "Botella grande para quienes quieren stock ilimitado.", precio: 199000 },
+      { archivo: "asad y hayaati.png", nombre: "Asad y Hayaati", descripcion: "Combinación oriental con notas cálidas y profundas.", precio: 15900 },
+      { archivo: "asadaazul100ml.jpg", nombre: "Asada Azul 100 ml", descripcion: "Aroma fresco, sofisticado y muy juvenil.", precio: 13500 },
+      { archivo: "asadaazul30ml.jpg", nombre: "Asada Azul 30 ml", descripcion: "Versión pocket con gran proyección.", precio: 6800 },
+      { archivo: "asadamarron30ml.jpg", nombre: "Asada Marrón 30 ml", descripcion: "Aroma cálido para uso diario.", precio: 7400 },
+      { archivo: "asadanegro100ml.jpg", nombre: "Asada Negro 100 ml", descripcion: "Perfume oscuro y elegante para ocasiones especiales.", precio: 15600 },
+      { archivo: "asadanegro30ml.jpg", nombre: "Asada Negro 30 ml", descripcion: "Tamaño reducido del clásico mejor valorado.", precio: 7600 },
+      { archivo: "botellas30ml.png", nombre: "Botellas 30 ml", descripcion: "Combo ideal para muestras o regalos.", precio: 5200 },
+      { archivo: "chocooverdose75ml.jpg", nombre: "Choco Overdose 75 ml", descripcion: "Notas gourmand para un perfume dulce e inolvidable.", precio: 13100 },
+      { archivo: "eclaire100ml.jpg", nombre: "Eclaire 100 ml", descripcion: "Fragancia elegante con carácter floral.", precio: 13900 },
+      { archivo: "erbapura100ml.jpg", nombre: "Erba Pura 100 ml", descripcion: "Aroma cítrico y cremoso para todos los días.", precio: 11800 },
+      { archivo: "khamrahamarron100ml.jpg", nombre: "Khamrah Marrón 100 ml", descripcion: "Notas orientales y amaderadas para una presencia potente.", precio: 15800 },
+      { archivo: "khamrahanegro100ml.jpg", nombre: "Khamrah Negro 100 ml", descripcion: "Perfume profundo y sofisticado de estilo nocturno.", precio: 16200 },
+      { archivo: "latafa 50ml.png", nombre: "Latafa 50 ml", descripcion: "Aroma clásico con una presentación moderna.", precio: 6500 },
+      { archivo: "lattafasakeena100ml.jpg", nombre: "Lattafa Sakeena 100 ml", descripcion: "Notas suaves y florales con una estela duradera.", precio: 12000 },
+      { archivo: "laverne75ml.jpg", nombre: "Laverne 75 ml", descripcion: "Fragancia versátil para cualquier ocasión.", precio: 11200 },
+      { archivo: "maahirgold100ml.jpg", nombre: "Maahir Gold 100 ml", descripcion: "Aroma dorado con un toque de lujo.", precio: 12300 },
+      { archivo: "missarmaf100ml.jpg", nombre: "Miss Armaf 100 ml", descripcion: "Perfume femenino con una mezcla elegante.", precio: 11800 },
+      { archivo: "musamamblack1000ml.jpg", nombre: "Musamam Black 1000 ml", descripcion: "Presentación grande con fragancia potente.", precio: 199000 },
+      { archivo: "mystical100ml.jpg", nombre: "Mystical 100 ml", descripcion: "Aroma misterioso y sensual con toque oriental.", precio: 15000 },
+      { archivo: "set latafa.png", nombre: "Set Latafa", descripcion: "Conjunto de fragancias perfectas para regalo.", precio: 18500 },
+      { archivo: "shaheen100ml.jpg", nombre: "Shaheen 100 ml", descripcion: "Perfume elegante para un uso diario distinguido.", precio: 14400 },
+      { archivo: "shaheengold100ml.jpg", nombre: "Shaheen Gold 100 ml", descripcion: "Versión premium con notas cálidas y doradas.", precio: 15500 },
+      { archivo: "xerjoffopera100ml.jpg", nombre: "Xerjoff Opera 100 ml", descripcion: "Fragancia de lujo con carácter sofisticado.", precio: 27900 },
+      { archivo: "yara100ml.png", nombre: "Yara 100 ml", descripcion: "Aroma fresco y floral con gran proyección.", precio: 10400 },
+      { archivo: "yarablanco30ml.jpg", nombre: "Yara Blanco 30 ml", descripcion: "Versión compacta con estilo luminoso.", precio: 7200 },
+      { archivo: "yaracandy100ml.jpg", nombre: "Yara Candy 100 ml", descripcion: "Dulce y juvenil con mucha personalidad.", precio: 11900 },
+      { archivo: "yaranaranja30ml.jpg", nombre: "Yara Naranja 30 ml", descripcion: "Notas cítricas vibrantes en tamaño práctico.", precio: 7400 },
+      { archivo: "yararosadiviloo100ml.jpg", nombre: "Yara Rosa Diviloo 100 ml", descripcion: "Aroma femenino con un toque delicado.", precio: 12500 }
     ];
 
     const catalogo = document.getElementById("catalogo");
-    productos.forEach(producto => {
+    const whatsappFloat = document.getElementById("whatsapp-float");
+    const heroWhatsapp = document.getElementById("hero-whatsapp");
+    const contactWhatsApp = document.getElementById("contact-whatsapp");
+
+    function formatPrice(precio) {
+      if (typeof precio !== "number") {
+        return "Consultar precio";
+      }
+      return "$" + precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function buildWhatsAppUrl(producto) {
+      const message = `${whatsappIntro} ${producto.nombre}`;
+      return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    }
+
+    function addToCart(producto) {
+      const price = producto.precio || 0;
+      const cartCount = document.getElementById("cart-count");
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+
+      const item = document.createElement("li");
+      item.textContent = `${producto.nombre} - ${formatPrice(price)}`;
+      cartItems.appendChild(item);
+
+      const currentTotal = Number(cartTotal.textContent) || 0;
+      cartTotal.textContent = currentTotal + price;
+      cartCount.textContent = Number(cartCount.textContent) + 1;
+    }
+
+    function toggleCart() {
+      const cartDiv = document.getElementById("cart");
+      cartDiv.style.display = cartDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function createProductCard(producto) {
       const card = document.createElement("article");
       card.className = "producto";
+      const precioTexto = formatPrice(producto.precio);
+      const hasPrice = typeof producto.precio === "number";
+
       card.innerHTML = `
         <img loading="lazy" src="${encodeURI(producto.archivo)}" alt="${producto.nombre}">
         <div class="producto-body">
           <h3>${producto.nombre}</h3>
           <p>${producto.descripcion}</p>
-          <p class="precio">${producto.precio}</p>
+          <p class="precio">${precioTexto}</p>
+          <div class="producto-actions"></div>
         </div>
       `;
+
+      const actions = card.querySelector(".producto-actions");
+      const contactButton = document.createElement("button");
+      contactButton.className = "btn btn-primary";
+      contactButton.textContent = hasPrice ? "Pedir ahora" : "Consultar precio";
+      contactButton.addEventListener("click", () => {
+        window.open(buildWhatsAppUrl(producto), "_blank");
+      });
+      actions.appendChild(contactButton);
+
+      const whatsappLink = document.createElement("a");
+      whatsappLink.className = "btn btn-secondary whatsapp-button";
+      whatsappLink.href = buildWhatsAppUrl(producto);
+      whatsappLink.target = "_blank";
+      whatsappLink.rel = "noreferrer";
+      whatsappLink.textContent = "Enviar WhatsApp";
+      actions.appendChild(whatsappLink);
+
+      return card;
+    }
+
+    productos.forEach(producto => {
+      const card = createProductCard(producto);
       catalogo.appendChild(card);
     });
-  </script>
 
-  <div id="cart-icon">🛒 Carrito (<span id="cart-count">0</span>)</div>
+    const contactUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola! Quiero más información sobre tus perfumes.")}`;
+    whatsappFloat.href = contactUrl;
+    contactWhatsApp.href = contactUrl;
 
-  <div id="cart" style="display:none;">
-    <h2>Carrito de Compras</h2>
-    <ul id="cart-items"></ul>
-    <p>Total: $<span id="cart-total">0</span></p>
-    <button onclick="checkout()">Finalizar Compra</button>
-  </div>
+    whatsappFloat.addEventListener("click", event => {
+      event.preventDefault();
+      window.open(contactUrl, "_blank");
+    });
 
-  <script>
-    let cart = [];
-
-    function addToCart(nombre, precio) {
-      cart.push({nombre, precio});
-      updateCart();
-    }
-
-    function updateCart() {
-      document.getElementById("cart-count").innerText = cart.length;
-      let items = "";
-      let total = 0;
-      cart.forEach((item, index) => {
-        items += `<li>${item.nombre} - $${item.precio} <button onclick="removeFromCart(${index})">Eliminar</button></li>`;
-        total += item.precio;
-      });
-      document.getElementById("cart-items").innerHTML = items;
-      document.getElementById("cart-total").innerText = total;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    function checkout() {
-      alert("Gracias por tu compra. Total: $" + document.getElementById("cart-total").innerText);
-      cart = [];
-      updateCart();
-    }
-
-    document.getElementById("cart-icon").onclick = () => {
-      const cartDiv = document.getElementById("cart");
-      cartDiv.style.display = cartDiv.style.display === "none" ? "block" : "none";
-    };
+    heroWhatsapp.addEventListener("click", event => {
+      event.preventDefault();
+      document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
+    });
   </script>
 </body>
 </html>
