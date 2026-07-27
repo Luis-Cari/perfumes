@@ -228,6 +228,34 @@
       padding-left: 18px;
     }
 
+    .hidden {
+      display: none;
+    }
+
+    pre {
+      background: #f6f3ff;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #1f2130;
+      border: 1px solid rgba(31, 33, 48, 0.08);
+    }
+
+    .producto-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .producto-actions .btn,
+    .producto-actions button {
+      flex: 1 1 48%;
+      min-width: 140px;
+    }
+
     .terms {
       display: grid;
       gap: 10px;
@@ -286,7 +314,7 @@
       <h1>Tu tienda de perfumes ahora en línea</h1>
       <p>Explora la colección completa con imágenes reales, precios actualizados y contacto directo por WhatsApp para pedir stock, envío o pago.</p>
       <div class="hero-actions">
-        <a class="hero-button" href="#catalogo">Ver catálogo</a>
+        <a class="hero-button" id="hero-choose" href="#catalogo">Elegir perfume</a>
         <a class="btn btn-secondary whatsapp-button" id="hero-whatsapp" href="#contacto">Contactar WhatsApp</a>
       </div>
     </div>
@@ -299,6 +327,18 @@
     </section>
 
     <section id="catalogo" class="catalogo"></section>
+
+    <section id="pedido" class="info hidden">
+      <div>
+        <h2>Perfumes elegidos</h2>
+        <p>Estos son los perfumes que elegiste. Puedes copiar esta lista o enviarla por WhatsApp para procesarla en una planilla.</p>
+      </div>
+      <pre id="selection-list"></pre>
+      <div class="producto-actions">
+        <a class="btn btn-secondary whatsapp-button" id="send-selected-whatsapp" href="#" target="_blank" rel="noreferrer">Enviar lista por WhatsApp</a>
+        <button class="btn btn-secondary" id="copy-selection" type="button">Copiar lista</button>
+      </div>
+    </section>
 
     <section id="contacto" class="info">
       <div>
@@ -364,7 +404,14 @@
     const catalogo = document.getElementById("catalogo");
     const whatsappFloat = document.getElementById("whatsapp-float");
     const heroWhatsapp = document.getElementById("hero-whatsapp");
+    const heroChoose = document.getElementById("hero-choose");
     const contactWhatsApp = document.getElementById("contact-whatsapp");
+    const pedidoSection = document.getElementById("pedido");
+    const selectionList = document.getElementById("selection-list");
+    const sendSelectedWhatsApp = document.getElementById("send-selected-whatsapp");
+    const copySelection = document.getElementById("copy-selection");
+
+    let selectedProducts = [];
 
     function formatPrice(precio) {
       if (typeof precio !== "number") {
@@ -373,29 +420,42 @@
       return "$" + precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    function buildWhatsAppUrl(producto) {
-      const message = `${whatsappIntro} ${producto.nombre}`;
+    function buildWhatsAppUrl(message) {
       return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     }
 
-    function addToCart(producto) {
-      const price = producto.precio || 0;
-      const cartCount = document.getElementById("cart-count");
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-
-      const item = document.createElement("li");
-      item.textContent = `${producto.nombre} - ${formatPrice(price)}`;
-      cartItems.appendChild(item);
-
-      const currentTotal = Number(cartTotal.textContent) || 0;
-      cartTotal.textContent = currentTotal + price;
-      cartCount.textContent = Number(cartCount.textContent) + 1;
+    function buildSelectionMessage() {
+      const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
+      return `${whatsappIntro} Lista de perfumes elegidos:\n${lines.join("\n")}`;
     }
 
-    function toggleCart() {
-      const cartDiv = document.getElementById("cart");
-      cartDiv.style.display = cartDiv.style.display === "none" ? "block" : "none";
+    function updateSelectionDisplay() {
+      if (selectedProducts.length === 0) {
+        pedidoSection.classList.add("hidden");
+        return;
+      }
+
+      pedidoSection.classList.remove("hidden");
+      const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
+      selectionList.textContent = lines.join("\n");
+      sendSelectedWhatsApp.href = buildWhatsAppUrl(buildSelectionMessage());
+    }
+
+    function chooseProduct(producto) {
+      selectedProducts.push(producto);
+      updateSelectionDisplay();
+
+      const more = confirm(`Has elegido \"${producto.nombre}\".\n\n¿Deseas elegir otro perfume?`);
+      if (more) {
+        document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      const summary = selectedProducts.map((item, index) => `${index + 1}. ${item.nombre}`).join("\n");
+      const send = confirm(`Lista de perfumes elegidos:\n${summary}\n\n¿Deseas enviar esta lista por WhatsApp?`);
+      if (send) {
+        window.open(buildWhatsAppUrl(buildSelectionMessage()), "_blank");
+      }
     }
 
     function createProductCard(producto) {
@@ -417,15 +477,13 @@
       const actions = card.querySelector(".producto-actions");
       const contactButton = document.createElement("button");
       contactButton.className = "btn btn-primary";
-      contactButton.textContent = hasPrice ? "Pedir ahora" : "Consultar precio";
-      contactButton.addEventListener("click", () => {
-        window.open(buildWhatsAppUrl(producto), "_blank");
-      });
+      contactButton.textContent = hasPrice ? "Elegir perfume" : "Consultar precio";
+      contactButton.addEventListener("click", () => chooseProduct(producto));
       actions.appendChild(contactButton);
 
       const whatsappLink = document.createElement("a");
       whatsappLink.className = "btn btn-secondary whatsapp-button";
-      whatsappLink.href = buildWhatsAppUrl(producto);
+      whatsappLink.href = buildWhatsAppUrl(`${whatsappIntro} ${producto.nombre}`);
       whatsappLink.target = "_blank";
       whatsappLink.rel = "noreferrer";
       whatsappLink.textContent = "Enviar WhatsApp";
@@ -439,7 +497,7 @@
       catalogo.appendChild(card);
     });
 
-    const contactUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola! Quiero más información sobre tus perfumes.")}`;
+    const contactUrl = buildWhatsAppUrl("Hola! Quiero más información sobre tus perfumes.");
     whatsappFloat.href = contactUrl;
     contactWhatsApp.href = contactUrl;
 
@@ -452,6 +510,17 @@
       event.preventDefault();
       document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
     });
+
+    heroChoose.addEventListener("click", event => {
+      event.preventDefault();
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+    });
+
+    copySelection.addEventListener("click", () => {
+      navigator.clipboard.writeText(selectionList.textContent);
+      alert("Lista de perfumes copiada al portapapeles.");
+    });
+
   </script>
 </body>
 </html>
