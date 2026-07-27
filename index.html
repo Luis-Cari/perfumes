@@ -283,6 +283,13 @@
       min-width: 140px;
     }
 
+    .selection-total {
+      margin: 10px 0 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #6f2e88;
+    }
+
     .terms {
       display: grid;
       gap: 10px;
@@ -336,6 +343,7 @@
         <h2>Perfumes elegidos</h2>
         <p>Estos son los perfumes que elegiste. Puedes enviarla cuando quieras o limpiarla si prefieres empezar de nuevo.</p>
         <p id="selection-note">Sigue eligiendo perfumes o envía la lista cuando quieras.</p>
+        <p id="selection-total" class="selection-total"></p>
       </div>
       <pre id="selection-list"></pre>
       <div class="producto-actions">
@@ -406,6 +414,7 @@
     const addAnother = document.getElementById("add-another");
     const clearSelection = document.getElementById("clear-selection");
     const selectionNote = document.getElementById("selection-note");
+    const selectionTotal = document.getElementById("selection-total");
 
     let selectedProducts = [];
 
@@ -416,9 +425,14 @@
       return "$" + precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
+    function getSelectionTotal() {
+      return selectedProducts.reduce((total, producto) => total + (typeof producto.precio === "number" ? producto.precio : 0), 0);
+    }
+
     function buildSelectionMessage() {
       const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
-      return `${whatsappIntro}\nLista de perfumes elegidos:\n${lines.join("\n")}`;
+      const total = formatPrice(getSelectionTotal());
+      return `${whatsappIntro}\nLista de perfumes elegidos:\n${lines.join("\n")}\n\nTotal estimado: ${total}`;
     }
 
     function updateSelectionDisplay() {
@@ -431,6 +445,7 @@
       const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
       selectionList.textContent = lines.join("\n");
       selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o enviar la lista cuando quieras.`;
+      selectionTotal.textContent = `Total estimado: ${formatPrice(getSelectionTotal())}`;
     }
 
     function chooseProduct(producto) {
@@ -481,6 +496,7 @@
 
     clearSelection.addEventListener("click", () => {
       selectedProducts = [];
+      selectionTotal.textContent = "";
       updateSelectionDisplay();
     });
 
