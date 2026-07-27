@@ -121,8 +121,7 @@
       box-shadow: 0 26px 70px rgba(179, 91, 186, 0.2);
     }
 
-    .btn-secondary,
-    .whatsapp-button {
+    .btn-secondary {
       background: rgba(255, 255, 255, 0.96);
       color: #3b2a42;
       box-shadow: 0 14px 36px rgba(84, 67, 95, 0.12);
@@ -130,8 +129,7 @@
     }
 
     .btn:hover,
-    .hero-button:hover,
-    .whatsapp-button:hover {
+    .hero-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 26px 68px rgba(202, 124, 232, 0.18);
     }
@@ -318,7 +316,7 @@
     <div class="brand">Perfumes · Fragancias Premium</div>
     <div class="hero">
       <h1>Perfumes Premium en línea</h1>
-      <p>Explora fragancias exclusivas con imágenes reales, precios claros y contacto directo para tu pedido por WhatsApp.</p>
+      <p>Explora fragancias exclusivas con imágenes reales, precios claros y una selección organizada para tu pedido.</p>
       <div class="hero-actions">
         <a class="hero-button" id="hero-choose" href="#catalogo">Elegir perfume</a>
       </div>
@@ -328,7 +326,7 @@
   <main>
     <section class="intro">
       <h2>Catálogo profesional</h2>
-      <p>Selecciona tus fragancias favoritas con descripciones aromáticas y precios actualizados. La página está diseñada para que tus clientes elijan rápido y contactarte directamente.</p>
+      <p>Selecciona tus fragancias favoritas con descripciones aromáticas y precios actualizados. La página está diseñada para que el cliente elija rápido y arme una selección clara.</p>
     </section>
 
     <section id="catalogo" class="catalogo"></section>
@@ -336,38 +334,31 @@
     <section id="pedido" class="info hidden">
       <div>
         <h2>Perfumes elegidos</h2>
-        <p>Estos son los perfumes que elegiste. Puedes copiar esta lista o enviarla por WhatsApp para procesarla en una planilla.</p>
-        <p id="selection-note">Sigue eligiendo perfumes o envía la lista cuando quieras.</p>
+        <p>Estos son los perfumes que elegiste. Puedes copiar esta lista o limpiarla cuando quieras.</p>
+        <p id="selection-note">Sigue eligiendo perfumes o copia la lista cuando quieras.</p>
       </div>
       <pre id="selection-list"></pre>
       <div class="producto-actions">
         <button class="btn btn-primary" id="add-another" type="button">Agregar otro perfume</button>
         <button class="btn btn-secondary" id="clear-selection" type="button">Limpiar selección</button>
-      </div>
-      <div class="producto-actions">
-        <a class="btn btn-secondary whatsapp-button" id="send-selected-whatsapp" href="#" target="_blank" rel="noreferrer">Enviar lista por WhatsApp</a>
         <button class="btn btn-secondary" id="copy-selection" type="button">Copiar lista</button>
       </div>
     </section>
 
     <section id="contacto" class="info">
       <div>
-        <h2>Contacta por WhatsApp</h2>
-        <p>Envía tu pedido por WhatsApp con el listado de perfumes que elegiste y recibirás una respuesta rápida. Es la forma más clara y directa de coordinar tu compra.</p>
-        <a class="btn btn-primary" id="contact-whatsapp" href="#">Enviar WhatsApp</a>
+        <h2>Selección organizada</h2>
+        <p>Tu lista queda preparada para revisar y compartir cuando lo necesites. Puedes seguir agregando perfumes hasta armar la selección completa.</p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>Compra por WhatsApp y recibe tu perfume con envío seguro. Asegúrate de mantener actualizados los precios y el número de contacto en el código.</p>
+    <p>Explora la colección, arma tu selección y revisa los precios en un solo lugar.</p>
   </footer>
 
 
   <script>
-    const whatsappNumber = "5491127990662"; // Número real de WhatsApp en formato internacional: 54 + código de área + número
-    const whatsappIntro = "Hola! Quiero más información sobre este perfume:";
-
     const productos = [
       { archivo: "9am100ml.jpg", nombre: "9am 100 ml", descripcion: "Notas frescas y cítricas con un fondo limpio y ligero.", precio: 14900 },
       { archivo: "9amypmkhamrah.png", nombre: "9am y 9pm Khamrah", descripcion: "Mezcla oriental con rosa, ámbar y especias suaves.", precio: 18900 },
@@ -406,10 +397,8 @@
 
     const catalogo = document.getElementById("catalogo");
     const heroChoose = document.getElementById("hero-choose");
-    const contactWhatsApp = document.getElementById("contact-whatsapp");
     const pedidoSection = document.getElementById("pedido");
     const selectionList = document.getElementById("selection-list");
-    const sendSelectedWhatsApp = document.getElementById("send-selected-whatsapp");
     const copySelection = document.getElementById("copy-selection");
     const addAnother = document.getElementById("add-another");
     const clearSelection = document.getElementById("clear-selection");
@@ -424,15 +413,6 @@
       return "$" + precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    function buildWhatsAppUrl(message) {
-      return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    }
-
-    function buildSelectionMessage() {
-      const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
-      return `${whatsappIntro} Lista de perfumes elegidos:\n${lines.join("\n")}`;
-    }
-
     function updateSelectionDisplay() {
       if (selectedProducts.length === 0) {
         pedidoSection.classList.add("hidden");
@@ -442,8 +422,7 @@
       pedidoSection.classList.remove("hidden");
       const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
       selectionList.textContent = lines.join("\n");
-      selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o enviar la lista por WhatsApp.`;
-      sendSelectedWhatsApp.href = buildWhatsAppUrl(buildSelectionMessage());
+      selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o copiar la lista cuando quieras.`;
     }
 
     function chooseProduct(producto) {
@@ -469,19 +448,11 @@
       `;
 
       const actions = card.querySelector(".producto-actions");
-      const contactButton = document.createElement("button");
-      contactButton.className = "btn btn-primary";
-      contactButton.textContent = hasPrice ? "Elegir perfume" : "Consultar precio";
-      contactButton.addEventListener("click", () => chooseProduct(producto));
-      actions.appendChild(contactButton);
-
-      const whatsappLink = document.createElement("a");
-      whatsappLink.className = "btn btn-secondary whatsapp-button";
-      whatsappLink.href = buildWhatsAppUrl(`${whatsappIntro} ${producto.nombre}`);
-      whatsappLink.target = "_blank";
-      whatsappLink.rel = "noreferrer";
-      whatsappLink.textContent = "Enviar WhatsApp";
-      actions.appendChild(whatsappLink);
+      const chooseButton = document.createElement("button");
+      chooseButton.className = "btn btn-primary";
+      chooseButton.textContent = hasPrice ? "Elegir perfume" : "Consultar precio";
+      chooseButton.addEventListener("click", () => chooseProduct(producto));
+      actions.appendChild(chooseButton);
 
       return card;
     }
@@ -490,9 +461,6 @@
       const card = createProductCard(producto);
       catalogo.appendChild(card);
     });
-
-    const contactUrl = buildWhatsAppUrl("Hola! Quiero más información sobre tus perfumes.");
-    contactWhatsApp.href = contactUrl;
 
     heroChoose.addEventListener("click", event => {
       event.preventDefault();
