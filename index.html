@@ -27,10 +27,6 @@
       text-align: center;
       background: radial-gradient(circle at top, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82));
       border-bottom: 1px solid rgba(31, 33, 48, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(12px);
     }
 
     .brand {
@@ -272,29 +268,6 @@
       line-height: 1.7;
     }
 
-    .whatsapp-fixed {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 30;
-    }
-
-    .whatsapp-fixed a {
-      background: #25d366;
-      color: white;
-      padding: 16px 22px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 18px 38px rgba(37, 211, 102, 0.28);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .whatsapp-fixed a:hover {
-      transform: translateY(-2px);
-    }
 
     @media (max-width: 720px) {
       .hero-actions {
@@ -311,19 +284,18 @@
   <header>
     <div class="brand">Perfumes · Fragancias Premium</div>
     <div class="hero">
-      <h1>Tu tienda de perfumes ahora en línea</h1>
-      <p>Explora la colección completa con imágenes reales, precios actualizados y contacto directo por WhatsApp para pedir stock, envío o pago.</p>
+      <h1>Perfumes Premium en línea</h1>
+      <p>Explora fragancias exclusivas con imágenes reales, precios claros y contacto directo para tu pedido por WhatsApp.</p>
       <div class="hero-actions">
         <a class="hero-button" id="hero-choose" href="#catalogo">Elegir perfume</a>
-        <a class="btn btn-secondary whatsapp-button" id="hero-whatsapp" href="#contacto">Contactar WhatsApp</a>
       </div>
     </div>
   </header>
 
   <main>
     <section class="intro">
-      <h2>Catálogo visual de perfumes</h2>
-      <p>Desplázate por los productos, mira cada imagen, revisa el precio y elige el perfume que quieras. Presiona WhatsApp para preguntar por stock o confirmar entrega.</p>
+      <h2>Catálogo profesional</h2>
+      <p>Selecciona tus fragancias favoritas con descripciones aromáticas y precios actualizados. La página está diseñada para que tus clientes elijan rápido y contactarte directamente.</p>
     </section>
 
     <section id="catalogo" class="catalogo"></section>
@@ -347,13 +319,9 @@
 
     <section id="contacto" class="info">
       <div>
-        <h2>¿Listo para comprar?</h2>
-        <p>Envía un mensaje directo por WhatsApp con el nombre del perfume y responderemos en minutos. También puedes pedir más fotos o información de envío.</p>
+        <h2>Contacta por WhatsApp</h2>
+        <p>Envía tu pedido por WhatsApp con el listado de perfumes que elegiste y recibirás una respuesta rápida. Es la forma más clara y directa de coordinar tu compra.</p>
         <a class="btn btn-primary" id="contact-whatsapp" href="#">Enviar WhatsApp</a>
-      </div>
-      <div class="terms">
-        <p><strong>Consejo:</strong> Reemplaza el número de WhatsApp en el código por tu número real para que los clientes te contacten directamente.</p>
-        <p>Si deseas cambiar precios, sólo actualiza los valores de <code>precio</code> en cada producto dentro del arreglo <code>productos</code> en este archivo.</p>
       </div>
     </section>
   </main>
@@ -362,9 +330,6 @@
     <p>Compra por WhatsApp y recibe tu perfume con envío seguro. Asegúrate de mantener actualizados los precios y el número de contacto en el código.</p>
   </footer>
 
-  <div class="whatsapp-fixed">
-    <a id="whatsapp-float" href="#">📲 Chatear WhatsApp</a>
-  </div>
 
   <script>
     const whatsappNumber = "5491127990662"; // Número real de WhatsApp en formato internacional: 54 + código de área + número
@@ -407,8 +372,6 @@
     ];
 
     const catalogo = document.getElementById("catalogo");
-    const whatsappFloat = document.getElementById("whatsapp-float");
-    const heroWhatsapp = document.getElementById("hero-whatsapp");
     const heroChoose = document.getElementById("hero-choose");
     const contactWhatsApp = document.getElementById("contact-whatsapp");
     const pedidoSection = document.getElementById("pedido");
@@ -496,18 +459,7 @@
     });
 
     const contactUrl = buildWhatsAppUrl("Hola! Quiero más información sobre tus perfumes.");
-    whatsappFloat.href = contactUrl;
     contactWhatsApp.href = contactUrl;
-
-    whatsappFloat.addEventListener("click", event => {
-      event.preventDefault();
-      window.open(contactUrl, "_blank");
-    });
-
-    heroWhatsapp.addEventListener("click", event => {
-      event.preventDefault();
-      document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
-    });
 
     heroChoose.addEventListener("click", event => {
       event.preventDefault();
