@@ -121,11 +121,19 @@
       box-shadow: 0 26px 70px rgba(179, 91, 186, 0.2);
     }
 
+    .btn-primary:hover {
+      filter: brightness(1.04);
+    }
+
     .btn-secondary {
       background: rgba(255, 255, 255, 0.96);
       color: #3b2a42;
       box-shadow: 0 14px 36px rgba(84, 67, 95, 0.12);
       border: 1px solid rgba(211, 188, 221, 0.65);
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #fff6ff 0%, #f8ebff 100%);
     }
 
     .btn:hover,
@@ -177,6 +185,14 @@
       border: 1px solid rgba(201, 177, 219, 0.35);
       box-shadow: 0 30px 70px rgba(95, 68, 102, 0.12);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .producto::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(179, 91, 186, 0.06), rgba(240, 108, 153, 0.04));
+      pointer-events: none;
     }
 
     .producto:hover {
@@ -285,9 +301,14 @@
 
     .selection-total {
       margin: 10px 0 0;
+      padding: 10px 14px;
+      display: inline-block;
+      border-radius: 999px;
       font-size: 1.05rem;
-      font-weight: 700;
-      color: #6f2e88;
+      font-weight: 800;
+      color: #ffffff;
+      background: linear-gradient(135deg, #b35bba 0%, #f06c99 100%);
+      box-shadow: 0 12px 28px rgba(179, 91, 186, 0.22);
     }
 
     .terms {
