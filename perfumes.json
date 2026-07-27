@@ -1,0 +1,22 @@
+[
+  {
+    "archivo": "onlyyou.jpg",
+    "nombre": "Perfume Hombre Only You (30 ml)",
+    "descripcion": "Fragancia fresca y versátil, con notas cítricas y amaderadas. Ideal para uso diario."
+  },
+  {
+    "archivo": "asada_negro.jpg",
+    "nombre": "Perfume Asada (30 ml – Negro)",
+    "descripcion": "Elegancia intensa con notas especiadas y cálidas. Perfecto para ocasiones nocturnas."
+  },
+  {
+    "archivo": "yara.jpg",
+    "nombre": "Perfume Yara (30 ml – Blanco/Naranja)",
+    "descripcion": "Aroma dulce y floral, pensado para quienes buscan frescura y delicadeza."
+  },
+  {
+    "archivo": "khamraha.jpg",
+    "nombre": "Perfume Khamraha (100 ml – Marrón)",
+    "descripcion": "Fragancia sofisticada, con notas orientales y un carácter envolvente."
+  }
+]
