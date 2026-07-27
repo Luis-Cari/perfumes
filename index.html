@@ -332,8 +332,13 @@
       <div>
         <h2>Perfumes elegidos</h2>
         <p>Estos son los perfumes que elegiste. Puedes copiar esta lista o enviarla por WhatsApp para procesarla en una planilla.</p>
+        <p id="selection-note">Sigue eligiendo perfumes o envía la lista cuando quieras.</p>
       </div>
       <pre id="selection-list"></pre>
+      <div class="producto-actions">
+        <button class="btn btn-primary" id="add-another" type="button">Agregar otro perfume</button>
+        <button class="btn btn-secondary" id="clear-selection" type="button">Limpiar selección</button>
+      </div>
       <div class="producto-actions">
         <a class="btn btn-secondary whatsapp-button" id="send-selected-whatsapp" href="#" target="_blank" rel="noreferrer">Enviar lista por WhatsApp</a>
         <button class="btn btn-secondary" id="copy-selection" type="button">Copiar lista</button>
@@ -410,6 +415,9 @@
     const selectionList = document.getElementById("selection-list");
     const sendSelectedWhatsApp = document.getElementById("send-selected-whatsapp");
     const copySelection = document.getElementById("copy-selection");
+    const addAnother = document.getElementById("add-another");
+    const clearSelection = document.getElementById("clear-selection");
+    const selectionNote = document.getElementById("selection-note");
 
     let selectedProducts = [];
 
@@ -438,24 +446,14 @@
       pedidoSection.classList.remove("hidden");
       const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
       selectionList.textContent = lines.join("\n");
+      selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o enviar la lista por WhatsApp.`;
       sendSelectedWhatsApp.href = buildWhatsAppUrl(buildSelectionMessage());
     }
 
     function chooseProduct(producto) {
       selectedProducts.push(producto);
       updateSelectionDisplay();
-
-      const more = confirm(`Has elegido \"${producto.nombre}\".\n\n¿Deseas elegir otro perfume?`);
-      if (more) {
-        document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-
-      const summary = selectedProducts.map((item, index) => `${index + 1}. ${item.nombre}`).join("\n");
-      const send = confirm(`Lista de perfumes elegidos:\n${summary}\n\n¿Deseas enviar esta lista por WhatsApp?`);
-      if (send) {
-        window.open(buildWhatsAppUrl(buildSelectionMessage()), "_blank");
-      }
+      pedidoSection.scrollIntoView({ behavior: "smooth" });
     }
 
     function createProductCard(producto) {
@@ -516,7 +514,20 @@
       document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
     });
 
+    addAnother.addEventListener("click", () => {
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+    });
+
+    clearSelection.addEventListener("click", () => {
+      selectedProducts = [];
+      updateSelectionDisplay();
+    });
+
     copySelection.addEventListener("click", () => {
+      if (selectionList.textContent.trim().length === 0) {
+        alert("No hay perfumes seleccionados para copiar.");
+        return;
+      }
       navigator.clipboard.writeText(selectionList.textContent);
       alert("Lista de perfumes copiada al portapapeles.");
     });
