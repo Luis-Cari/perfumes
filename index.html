@@ -8,7 +8,7 @@
     :root {
       color-scheme: light;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f8f3f7;
+      background: #fdf7f4;
       color: #1f2130;
     }
 
@@ -19,89 +19,121 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(180deg, #fff7f0 0%, #f3f6ff 100%);
+      background: radial-gradient(circle at top, #fff8f3 0%, #f7f1ff 42%, #eef2fb 100%);
     }
 
     header {
       padding: 32px 24px;
       text-align: center;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82));
-      border-bottom: 1px solid rgba(31, 33, 48, 0.08);
+      max-width: 1180px;
+      margin: 0 auto;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 1rem;
+      gap: 10px;
+      font-size: 0.95rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #1f2130;
+      color: #5b3d5f;
     }
 
     .hero {
-      margin-top: 18px;
-      max-width: 920px;
-      margin-left: auto;
-      margin-right: auto;
+      position: relative;
+      margin: 18px auto 0;
+      max-width: 980px;
+      padding: 42px 40px 36px;
+      border-radius: 42px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 40px 90px rgba(72, 52, 81, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.55;
+    }
+
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      top: -70px;
+      left: -40px;
+      background: radial-gradient(circle, rgba(255, 141, 186, 0.45), transparent 65%);
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      bottom: -80px;
+      background: radial-gradient(circle, rgba(173, 126, 255, 0.18), transparent 60%);
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2.4rem, 4vw, 4.1rem);
+      font-size: clamp(2.6rem, 4vw, 4.4rem);
       line-height: 1.02;
-      letter-spacing: -0.05em;
-      color: #151823;
+      letter-spacing: -0.06em;
+      color: #261b2b;
     }
 
     .hero p {
       margin: 20px auto 0;
       max-width: 720px;
-      font-size: 1.05rem;
-      color: #4f5568;
-      line-height: 1.8;
+      font-size: 1.06rem;
+      color: #5f5268;
+      line-height: 1.85;
     }
 
     .hero-actions {
-      margin-top: 28px;
+      margin-top: 32px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .btn, .hero-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 24px;
+      padding: 14px 28px;
       border-radius: 999px;
       border: none;
       text-decoration: none;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
     }
 
     .hero-button,
     .btn-primary {
-      background: linear-gradient(135deg, #ff7a9c 0%, #ffd7c4 100%);
-      color: #1f2130;
-      box-shadow: 0 18px 40px rgba(255, 124, 148, 0.22);
+      background: linear-gradient(135deg, #b35bba 0%, #f06c99 90%);
+      color: white;
+      box-shadow: 0 26px 70px rgba(179, 91, 186, 0.2);
     }
 
     .btn-secondary,
     .whatsapp-button {
-      background: white;
-      color: #1f2130;
-      box-shadow: 0 14px 30px rgba(31, 33, 48, 0.12);
+      background: rgba(255, 255, 255, 0.96);
+      color: #3b2a42;
+      box-shadow: 0 14px 36px rgba(84, 67, 95, 0.12);
+      border: 1px solid rgba(211, 188, 221, 0.65);
     }
 
     .btn:hover,
     .hero-button:hover,
     .whatsapp-button:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 26px 68px rgba(202, 124, 232, 0.18);
     }
 
     main {
@@ -140,17 +172,18 @@
     }
 
     .producto {
-      background: white;
-      border-radius: 28px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 30px;
       overflow: hidden;
-      border: 1px solid rgba(31, 33, 48, 0.08);
-      box-shadow: 0 20px 42px rgba(31, 33, 48, 0.08);
+      border: 1px solid rgba(201, 177, 219, 0.35);
+      box-shadow: 0 30px 70px rgba(95, 68, 102, 0.12);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .producto:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(31, 33, 48, 0.14);
+      transform: translateY(-8px);
+      box-shadow: 0 32px 80px rgba(95, 68, 102, 0.18);
     }
 
     .producto img {
@@ -162,19 +195,19 @@
     }
 
     .producto-body {
-      padding: 22px;
+      padding: 24px 24px 28px;
     }
 
     .producto h3 {
       margin: 0;
-      font-size: 1.15rem;
-      color: #121426;
+      font-size: 1.2rem;
+      color: #34233b;
     }
 
     .producto p {
-      margin: 12px 0 14px;
-      color: #555f77;
-      line-height: 1.7;
+      margin: 14px 0 16px;
+      color: #5c5168;
+      line-height: 1.75;
       min-height: 3.2em;
     }
 
@@ -201,16 +234,17 @@
       margin-top: 36px;
       display: grid;
       gap: 18px;
-      background: rgba(255, 255, 255, 0.96);
-      padding: 26px;
-      border-radius: 26px;
-      border: 1px solid rgba(31, 33, 48, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 32px;
+      border-radius: 32px;
+      border: 1px solid rgba(200, 176, 213, 0.4);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.75);
     }
 
     .info h2 {
       margin: 0 0 10px;
-      font-size: 1.75rem;
-      color: #141827;
+      font-size: 1.9rem;
+      color: #2e1e33;
     }
 
     .info p,
@@ -240,9 +274,8 @@
     }
 
     .producto-actions {
-      display: flex;
+      display: grid;
       gap: 12px;
-      flex-wrap: wrap;
       margin-top: 16px;
     }
 
@@ -255,17 +288,17 @@
     .terms {
       display: grid;
       gap: 10px;
-      font-size: 0.95rem;
-      color: #64748b;
+      font-size: 0.98rem;
+      color: #6a5c74;
     }
 
     footer {
       margin-top: 42px;
       text-align: center;
-      padding: 18px 8px 28px;
-      color: #5d667d;
+      padding: 22px 12px 34px;
+      color: #6e5d7a;
       font-size: 0.95rem;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
 
