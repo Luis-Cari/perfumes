@@ -334,14 +334,14 @@
     <section id="pedido" class="info hidden">
       <div>
         <h2>Perfumes elegidos</h2>
-        <p>Estos son los perfumes que elegiste. Puedes copiar esta lista o limpiarla cuando quieras.</p>
-        <p id="selection-note">Sigue eligiendo perfumes o copia la lista cuando quieras.</p>
+        <p>Estos son los perfumes que elegiste. Puedes enviarla cuando quieras o limpiarla si prefieres empezar de nuevo.</p>
+        <p id="selection-note">Sigue eligiendo perfumes o envía la lista cuando quieras.</p>
       </div>
       <pre id="selection-list"></pre>
       <div class="producto-actions">
         <button class="btn btn-primary" id="add-another" type="button">Agregar otro perfume</button>
         <button class="btn btn-secondary" id="clear-selection" type="button">Limpiar selección</button>
-        <button class="btn btn-secondary" id="copy-selection" type="button">Copiar lista</button>
+        <button class="btn btn-secondary" id="send-selection" type="button">Enviar lista</button>
       </div>
     </section>
 
@@ -359,6 +359,9 @@
 
 
   <script>
+    const whatsappNumber = "5491127990662";
+    const whatsappIntro = "Hola! Quiero revisar esta lista de perfumes:";
+
     const productos = [
       { archivo: "9am100ml.jpg", nombre: "9am 100 ml", descripcion: "Notas frescas y cítricas con un fondo limpio y ligero.", precio: 14900 },
       { archivo: "9amypmkhamrah.png", nombre: "9am y 9pm Khamrah", descripcion: "Mezcla oriental con rosa, ámbar y especias suaves.", precio: 18900 },
@@ -399,7 +402,7 @@
     const heroChoose = document.getElementById("hero-choose");
     const pedidoSection = document.getElementById("pedido");
     const selectionList = document.getElementById("selection-list");
-    const copySelection = document.getElementById("copy-selection");
+    const sendSelection = document.getElementById("send-selection");
     const addAnother = document.getElementById("add-another");
     const clearSelection = document.getElementById("clear-selection");
     const selectionNote = document.getElementById("selection-note");
@@ -413,6 +416,11 @@
       return "$" + precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
+    function buildSelectionMessage() {
+      const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
+      return `${whatsappIntro}\nLista de perfumes elegidos:\n${lines.join("\n")}`;
+    }
+
     function updateSelectionDisplay() {
       if (selectedProducts.length === 0) {
         pedidoSection.classList.add("hidden");
@@ -422,7 +430,7 @@
       pedidoSection.classList.remove("hidden");
       const lines = selectedProducts.map((producto, index) => `${index + 1}. ${producto.nombre} - ${formatPrice(producto.precio)}`);
       selectionList.textContent = lines.join("\n");
-      selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o copiar la lista cuando quieras.`;
+      selectionNote.textContent = `Has elegido ${selectedProducts.length} perfume(s). Puedes agregar otro o enviar la lista cuando quieras.`;
     }
 
     function chooseProduct(producto) {
@@ -476,13 +484,14 @@
       updateSelectionDisplay();
     });
 
-    copySelection.addEventListener("click", () => {
-      if (selectionList.textContent.trim().length === 0) {
-        alert("No hay perfumes seleccionados para copiar.");
+    sendSelection.addEventListener("click", () => {
+      if (selectedProducts.length === 0) {
+        alert("No hay perfumes seleccionados para enviar.");
         return;
       }
-      navigator.clipboard.writeText(selectionList.textContent);
-      alert("Lista de perfumes copiada al portapapeles.");
+      const message = buildSelectionMessage();
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
     });
 
   </script>
